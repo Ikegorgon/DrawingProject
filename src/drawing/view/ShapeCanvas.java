@@ -29,6 +29,7 @@ public class ShapeCanvas extends JPanel {
 		this.setMinimumSize(new Dimension(600, 600));
 		this.setPreferredSize(new Dimension(600, 600));
 		this.setMaximumSize(getPreferredSize());
+		
 	}
 	
 	
