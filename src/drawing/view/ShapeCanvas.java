@@ -23,6 +23,7 @@ public class ShapeCanvas extends JPanel {
 	public ShapeCanvas(DrawingController app) {
 		super();
 		this.app = app;
+		resetLine();
 		triangleList = new ArrayList<Polygon>();
 		polygonList = new ArrayList<Polygon>();
 		ellipseList  = new ArrayList<Ellipse2D>();
