@@ -17,6 +17,8 @@ public class ShapeCanvas extends JPanel {
 	
 	private DrawingController app;
 	private BufferedImage canvasImage;
+	private int previousX;
+	private int previousY;
 	
 	public ShapeCanvas(DrawingController app) {
 		super();
@@ -74,6 +76,26 @@ public class ShapeCanvas extends JPanel {
 		}
 		updateImage();
 	}
+	public void drawOnCanvas(int xPosition, int yPosition) {
+		Graphics2D current = canvasImage.createGraphics();
+		current.setPaint(Color.DARK_GRAY);
+		current.setStroke(new BasicStroke(3));
+		current.drawLine(xPosition, yPosition, xPosition, yPosition);
+		updateImage();
+	}
+	public void drawOnCanvas(int xPosition, int yPosition, int lineWidth) {
+		Graphics2D current = canvasImage.createGraphics();
+		current.setPaint(Color.DARK_GRAY);
+		current.setStroke(new BasicStroke(lineWidth));
+		if (previousX == Integer.MIN_VALUE) {
+			current.drawLine(xPosition, yPosition, xPosition, yPosition);
+		} else {
+			current.drawLine(previousX, previousY, xPosition, yPosition);
+		}
+		previousX = xPosition;
+		previousY = yPosition;
+		updateImage();
+	}
 	public void clear() {
 		canvasImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
 		ellipseList.clear();
@@ -97,6 +119,10 @@ public class ShapeCanvas extends JPanel {
 		} catch (IOException error) {
 			app.handleErrors(error);
 		}
+	}
+	public void resetLine() {
+		previousX = Integer.MIN_VALUE;
+		previousY = Integer.MIN_VALUE;
 	}
 	public Color randomColor() {
 		int red = (int)(Math.random()*256);
